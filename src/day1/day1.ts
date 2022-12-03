@@ -26,3 +26,9 @@ const sum = (a: number, b: number) => a + b;
 
 const compare = (max: Optional<Elf>, current: Elf) =>
   !max || current.total_calories > max?.total_calories ? current : max;
+
+export const sumCalories = (total: number, current: Elf) => (total += current.total_calories);
+
+export const sortElvesByTotalCalories = (elfs: Elf[]) => elfs.sort((a, b) => b.total_calories - a.total_calories);
+
+export const getTopElves = (elfs: Elf[], count: number) => elfs.slice(0, count);

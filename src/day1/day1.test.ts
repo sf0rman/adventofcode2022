@@ -2,7 +2,7 @@ import { readFileSync } from "fs";
 import { resolve } from "path";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import * as utils from "../utils";
-import { Elf, getRichestElf, parse } from "./day1";
+import { Elf, getRichestElf, getTopElves, parse, sortElvesByTotalCalories, sumCalories } from "./day1";
 
 vi.spyOn(utils, "loadInput").mockImplementation(() =>
   readFileSync(resolve("./src/day1/test.txt"), { encoding: "utf-8" })
@@ -14,7 +14,7 @@ declare module "vitest" {
   }
 }
 
-describe("day1", () => {
+describe("day1 - part 1", () => {
   let elfs: Elf[];
   beforeAll(() => {
     const data = utils.loadInput(1);
@@ -49,6 +49,33 @@ describe("day1", () => {
   it("elf 4 is carrying the most calories", () => {
     const richest_elf = getRichestElf(elfs);
     expect(richest_elf).toEqual(elfs[3]);
+  });
+
+  it("elf 4 is carrying 24000 calories", () => {
+    const richest_elf = getRichestElf(elfs);
     expect(richest_elf.total_calories).toEqual(24000);
+  });
+});
+
+describe("day1 - part 2", () => {
+  let elfs: Elf[];
+  beforeAll(() => {
+    const data = utils.loadInput(1);
+    const dataset = parse(data);
+    elfs = dataset;
+  });
+
+  it("Top three elves are 4, 3, 5", () => {
+    const sortedElves = sortElvesByTotalCalories(elfs);
+    expect(sortedElves[0].total_calories).toEqual(24000);
+    expect(sortedElves[1].total_calories).toEqual(11000);
+    expect(sortedElves[2].total_calories).toEqual(10000);
+  });
+
+  it("Top three elves are carrying 45000 calories in total", () => {
+    const sortedElves = sortElvesByTotalCalories(elfs);
+    const top3Elves = getTopElves(sortedElves, 3);
+    const totalCalories = top3Elves.reduce(sumCalories, 0);
+    expect(totalCalories).toEqual(45000);
   });
 });

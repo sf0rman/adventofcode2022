@@ -1,5 +1,5 @@
 import { loadInput } from "./utils";
-import { getRichestElf, parse } from "./day1/day1";
+import { getRichestElf, getTopElves, parse, sortElvesByTotalCalories, sumCalories } from "./day1/day1";
 
 class NotYetImplementedError extends Error {
   constructor(message: string) {
@@ -11,7 +11,9 @@ class NotYetImplementedError extends Error {
 export const runCode = (day: number, part?: number) => {
   switch (day) {
     case 1:
-      printResult(getRichestElf(parse(loadInput(1))).total_calories);
+      const input = loadInput(1);
+      printResult(getRichestElf(parse(input)).total_calories);
+      printResult(getTopElves(sortElvesByTotalCalories(parse(input)), 3).reduce(sumCalories, 0));
       break;
     case 2:
     case 3:
