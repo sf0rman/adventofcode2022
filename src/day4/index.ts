@@ -42,10 +42,14 @@ export const canFullyWrap = (group: Group) => {
   return 0;
 };
 
-export const getSum = (total: number, current: Group) => (total += canFullyWrap(current));
+export const hasAnyOverlap = (group: Group): number =>
+  group[0].areas.find((val) => group[1].areas.includes(val)) ? 1 : 0;
 
-const part1 = (input: string) => parse(loadInput(4)).map(getGroup).reduce(getSum, 0);
-const part2 = (input: string) => "not implemented";
+export const getAllWrapped = (total: number, current: Group) => (total += canFullyWrap(current));
+export const getAllOverlapped = (total: number, current: Group) => (total += hasAnyOverlap(current));
+
+const part1 = (input: string) => parse(loadInput(4)).map(getGroup).reduce(getAllWrapped, 0);
+const part2 = (input: string) => parse(loadInput(4)).map(getGroup).reduce(getAllOverlapped, 0);
 
 // run day
 console.log("Day 2");
