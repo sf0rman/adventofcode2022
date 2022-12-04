@@ -1,5 +1,6 @@
 import { loadInput } from "./utils";
-import { getRichestElf, getTopElves, parse, sortElvesByTotalCalories, sumCalories } from "./day1/day1";
+import { getRichestElf, getTopElves, parse as parse1, sortElvesByTotalCalories, sumCalories } from "./day1/day1";
+import { getSum, parse as parse2 } from "./day2/day2";
 
 class NotYetImplementedError extends Error {
   constructor(message: string) {
@@ -9,13 +10,15 @@ class NotYetImplementedError extends Error {
 }
 
 export const runCode = (day: number, part?: number) => {
+  const input = loadInput(day);
   switch (day) {
     case 1:
-      const input = loadInput(1);
-      printResult(getRichestElf(parse(input)).total_calories);
-      printResult(getTopElves(sortElvesByTotalCalories(parse(input)), 3).reduce(sumCalories, 0));
+      printResult(getRichestElf(parse1(input)).total_calories);
+      printResult(getTopElves(sortElvesByTotalCalories(parse1(input)), 3).reduce(sumCalories, 0));
       break;
     case 2:
+      printResult(getSum(parse2(input)));
+      break;
     case 3:
     case 4:
     case 5:
