@@ -44,7 +44,7 @@ const part1 = (input: string) => getSum(parse(input).map(splitItem).map(getCommo
 const part2 = (input: string) => getSum(splitIntoGroups(parse(input)).map(getCommonGroupLetter));
 
 // run day
-console.log("Day 2");
+console.log("Day 3");
 const start1 = Date.now();
 console.log("Part 1:", part1(loadInput(3)));
 console.log("Runtime:", Date.now() - start1);

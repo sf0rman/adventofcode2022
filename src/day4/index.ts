@@ -48,14 +48,14 @@ export const hasAnyOverlap = (group: Group): number =>
 export const getAllWrapped = (total: number, current: Group) => (total += canFullyWrap(current));
 export const getAllOverlapped = (total: number, current: Group) => (total += hasAnyOverlap(current));
 
-const part1 = (input: string) => parse(loadInput(4)).map(getGroup).reduce(getAllWrapped, 0);
-const part2 = (input: string) => parse(loadInput(4)).map(getGroup).reduce(getAllOverlapped, 0);
+const part1 = (input: string) => parse(input).map(getGroup).reduce(getAllWrapped, 0);
+const part2 = (input: string) => parse(input).map(getGroup).reduce(getAllOverlapped, 0);
 
 // run day
-console.log("Day 2");
+console.log("Day 4");
 const start1 = Date.now();
-console.log("Part 1:", part1(loadInput(3)));
+console.log("Part 1:", part1(loadInput(4)));
 console.log("Runtime:", Date.now() - start1);
 const start2 = Date.now();
-console.log("Part 2:", part2(loadInput(3)));
+console.log("Part 2:", part2(loadInput(4)));
 console.log("Runtime:", Date.now() - start2);
