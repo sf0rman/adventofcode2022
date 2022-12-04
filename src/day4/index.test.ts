@@ -1,8 +1,8 @@
 import { readFileSync } from "fs";
 import { resolve } from "path";
 import { beforeAll, describe, expect, it, vi } from "vitest";
+import { canFullyWrap, getAllOverlapped, getAllWrapped, getGroup, hasAnyOverlap, parse } from ".";
 import * as utils from "../utils";
-import { canFullyWrap, getAllOverlapped, getAllWrapped, getGroup, getSum, hasAnyOverlap, parse } from ".";
 
 vi.spyOn(utils, "loadInput").mockImplementation(() =>
   readFileSync(resolve("./src/day4/test.txt"), { encoding: "utf-8" })
