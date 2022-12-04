@@ -2,7 +2,7 @@ import { readFileSync } from "fs";
 import { resolve } from "path";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import * as utils from "../utils";
-import { Elf, getRichestElf, getTopElves, parse, sortElvesByTotalCalories, sumCalories } from "./day1";
+import { Elf, getRichestElf, getTopElves, parse, sortElvesByTotalCalories, sumCalories } from ".";
 
 vi.spyOn(utils, "loadInput").mockImplementation(() =>
   readFileSync(resolve("./src/day1/test.txt"), { encoding: "utf-8" })

@@ -2,7 +2,7 @@ import { readFileSync } from "fs";
 import { resolve } from "path";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import * as utils from "../utils";
-import { decodeMessagePart1, decodeMessagePart2, findIsWin, findTypePoints, getSum, getTypePoint, isWin, parse } from "./day2";
+import { decodeMessagePart1, decodeMessagePart2, findIsWin, findTypePoints, getSum, getTypePoint, isWin, parse } from ".";
 
 vi.spyOn(utils, "loadInput").mockImplementation(() =>
   readFileSync(resolve("./src/day2/test.txt"), { encoding: "utf-8" })

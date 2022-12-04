@@ -5,8 +5,9 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "npx tsc",
-    "day:1": "ts-node ./src/day1/day1.ts",
-    "day:2": "ts-node ./src/day2/day2.ts",
+    "day:1": "ts-node ./src/day1/index.ts",
+    "day:2": "ts-node ./src/day2/index.ts",
+    "day:3": "ts-node ./src/day3/index.ts",
     "test": "vitest run"
   },
   "keywords": [],
