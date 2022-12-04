@@ -1,4 +1,4 @@
-import { Optional } from "../utils";
+import { loadInput, Optional } from "../utils";
 
 export interface Elf {
   items: number[];
@@ -32,3 +32,15 @@ export const sumCalories = (total: number, current: Elf) => (total += current.to
 export const sortElvesByTotalCalories = (elfs: Elf[]) => elfs.sort((a, b) => b.total_calories - a.total_calories);
 
 export const getTopElves = (elfs: Elf[], count: number) => elfs.slice(0, count);
+
+export const part1 = (input: string) => getRichestElf(parse(input)).total_calories;
+export const part2 = (input: string) => getTopElves(sortElvesByTotalCalories(parse(input)), 3).reduce(sumCalories, 0);
+
+// run day
+console.log("Day 1");
+const start1 = Date.now();
+console.log("Part 1:", part1(loadInput(1)));
+console.log("Runtime:", Date.now() - start1);
+const start2 = Date.now();
+console.log("Part 2:", part2(loadInput(1)));
+console.log("Runtime:", Date.now() - start2);
