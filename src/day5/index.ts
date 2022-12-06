@@ -53,10 +53,20 @@ const moveItem = (from: number, to: number, stacks: Stacks) => {
   stacks[to].push(moved);
 };
 
-export const moveItems = (instruction: Instruction, stacks: Stacks) => {
+export const moveItemsSingular = (instruction: Instruction, stacks: Stacks) => {
   for (let i = 0; i < instruction.count; i++) {
     moveItem(instruction.from, instruction.to, stacks);
   }
+  return stacks;
+};
+
+export const moveItemsBulk = (instruction: Instruction, stacks: Stacks) => {
+  const moved = stacks[instruction.from].splice(
+    stacks[instruction.from].length - instruction.count,
+    stacks[instruction.from].length
+  );
+
+  stacks[instruction.to] = [...stacks[instruction.to], ...moved];
   return stacks;
 };
 
@@ -65,11 +75,15 @@ export const detectTopItems = (stacks: Stacks) => stacks.map((col) => col[col.le
 // run day
 console.log("Day 5");
 const start1 = Date.now();
-const [stacks, instructions] = parse(loadInput(5));
-instructions.forEach((inst) => moveItems(inst, stacks));
-console.log("Part 2:", detectTopItems(stacks));
+const [stacks1, instructions1] = parse(loadInput(5));
+instructions1.forEach((inst) => moveItemsSingular(inst, stacks1));
+console.log("Part 2:", detectTopItems(stacks1));
 console.log("Runtime:", Date.now() - start1);
+
+
 //Part 2
 const start2 = Date.now();
-console.log("Part 2:", "Not yet implemented");
+const [stacks2, instructions2] = parse(loadInput(5));
+instructions2.forEach((inst) => moveItemsBulk(inst, stacks2));
+console.log("Part 2:", detectTopItems(stacks2));
 console.log("Runtime:", Date.now() - start2);

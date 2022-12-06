@@ -2,7 +2,7 @@ import { readFileSync } from "fs";
 import { resolve } from "path";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import * as utils from "../utils";
-import { detectTopItems, moveItems, parse } from ".";
+import { detectTopItems, moveItemsBulk, moveItemsSingular, parse } from ".";
 
 vi.spyOn(utils, "loadInput").mockImplementation(() =>
   readFileSync(resolve("./src/day5/test.txt"), { encoding: "utf-8" })
@@ -26,7 +26,7 @@ describe("day 5", () => {
     });
 
     it("Can move a single item", () => {
-      expect(moveItems({ count: 1, from: 1, to: 0 }, [["Z", "N"], ["M", "C", "D"], ["P"]])).toEqual([
+      expect(moveItemsSingular({ count: 1, from: 1, to: 0 }, [["Z", "N"], ["M", "C", "D"], ["P"]])).toEqual([
         ["Z", "N", "D"],
         ["M", "C"],
         ["P"]
@@ -34,7 +34,7 @@ describe("day 5", () => {
     });
 
     it("Can move several items", () => {
-      expect(moveItems({ count: 2, from: 1, to: 0 }, [["Z", "N"], ["M", "C", "D"], ["P"]])).toEqual([
+      expect(moveItemsSingular({ count: 2, from: 1, to: 0 }, [["Z", "N"], ["M", "C", "D"], ["P"]])).toEqual([
         ["Z", "N", "D", "C"],
         ["M"],
         ["P"]
@@ -47,9 +47,34 @@ describe("day 5", () => {
 
     it("End result should be 'CMZ'", () => {
       const [stacks, instructions] = parse(utils.loadInput(5));
-      instructions.forEach((inst) => moveItems(inst, stacks));
+      instructions.forEach((inst) => moveItemsSingular(inst, stacks));
       const result = detectTopItems(stacks);
       expect(result).toEqual("CMZ");
+    });
+  });
+
+  describe("part 2", () => {
+    it("Can move a single item", () => {
+      expect(moveItemsBulk({ count: 1, from: 1, to: 0 }, [["Z", "N"], ["M", "C", "D"], ["P"]])).toEqual([
+        ["Z", "N", "D"],
+        ["M", "C"],
+        ["P"]
+      ]);
+    });
+
+    it("Can move several items", () => {
+      expect(moveItemsBulk({ count: 2, from: 1, to: 0 }, [["Z", "N"], ["M", "C", "D"], ["P"]])).toEqual([
+        ["Z", "N", "C", "D"],
+        ["M"],
+        ["P"]
+      ]);
+    });
+
+    it("End result should be 'MCD'", () => {
+      const [stacks, instructions] = parse(utils.loadInput(5));
+      instructions.forEach((inst) => moveItemsBulk(inst, stacks));
+      const result = detectTopItems(stacks);
+      expect(result).toEqual("MCD");
     });
   });
 });
