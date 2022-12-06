@@ -11,7 +11,7 @@ export const findMarkerIndex = (input: string) => {
 };
 
 export const findMessageMarker = (input: string) => {
-  for (let i = 3; i < input.length; i++) {
+  for (let i = 14; i < input.length; i++) {
     if (new Set(getCharacterList(input, i, 14)).size === 14) {
       return i;
     }
