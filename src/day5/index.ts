@@ -1,0 +1,75 @@
+import { loadInput } from "../utils";
+
+type Stacks = Array<Array<string>>;
+
+interface Instruction {
+  count: number;
+  from: number;
+  to: number;
+}
+
+interface Decoded {
+  stacks: Stacks;
+  instructions: Instruction[];
+}
+
+export const parse = (input: string): [Stacks, Instruction[]] => {
+  const [s, i] = input.split("\r\n\r\n");
+  return [createStacks(s), createInstructionSet(i)];
+};
+
+const rotateMatrix = (matrix) => matrix[0].map((_, i) => matrix.map((row) => row[i]));
+
+const createStacks = (input: string): Stacks =>
+  rotateMatrix(input.split("\r\n").reverse().slice(1).map(buildSingleStack)).map(clearNestedEmpty);
+
+const clearNestedEmpty = (row) => row.filter((n: string) => !n.match(/\s/));
+
+const buildSingleStack = (input) => {
+  const tempArr = [];
+  for (let i = 1; i < input.length; i += 4) {
+    tempArr.push(input.charAt(i));
+  }
+  return tempArr;
+};
+
+const createInstructionSet = (input: string): Instruction[] =>
+  input.split("\r\n").map(decodeLine).map(createInstruction);
+
+const decodeLine = (input: string): string[] =>
+  input
+    .split(/[move|from|to]/)
+    .map((str) => str.trim())
+    .filter((n) => n);
+
+const createInstruction = (input: string[]): Instruction => ({
+  count: Number(input[0]),
+  from: Number(input[1]) - 1,
+  to: Number(input[2]) - 1
+});
+
+const moveItem = (from: number, to: number, stacks: Stacks) => {
+  const moved = stacks[from].pop();
+  stacks[to].push(moved);
+};
+
+export const moveItems = (instruction: Instruction, stacks: Stacks) => {
+  for (let i = 0; i < instruction.count; i++) {
+    moveItem(instruction.from, instruction.to, stacks);
+  }
+  return stacks;
+};
+
+export const detectTopItems = (stacks: Stacks) => stacks.map((col) => col[col.length - 1]).join("");
+
+// run day
+console.log("Day 5");
+const start1 = Date.now();
+const [stacks, instructions] = parse(loadInput(5));
+instructions.forEach((inst) => moveItems(inst, stacks));
+console.log("Part 2:", detectTopItems(stacks));
+console.log("Runtime:", Date.now() - start1);
+//Part 2
+const start2 = Date.now();
+console.log("Part 2:", "Not yet implemented");
+console.log("Runtime:", Date.now() - start2);
