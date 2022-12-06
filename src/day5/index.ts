@@ -8,11 +8,6 @@ interface Instruction {
   to: number;
 }
 
-interface Decoded {
-  stacks: Stacks;
-  instructions: Instruction[];
-}
-
 export const parse = (input: string): [Stacks, Instruction[]] => {
   const [s, i] = input.split("\r\n\r\n");
   return [createStacks(s), createInstructionSet(i)];
